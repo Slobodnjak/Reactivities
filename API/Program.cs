@@ -11,9 +11,14 @@ builder.Services.AddDbContext<AppDbContext>(opcija =>
     opcija.UseSqlite(builder.Configuration.GetConnectionString("Kon"));
 });
 
+builder.Services.AddCors();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
+
+app.UseCors(opcija => opcija.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:3000", "https://localhost:3000"));
+
 app.MapControllers();
 
 // Service locator pattern
